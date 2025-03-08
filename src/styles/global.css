@@ -1,0 +1,233 @@
+/* Global Styles */
+body {
+  font-family: "Inter", sans-serif;
+  background-color: #f8f9fa;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+/* Main Container */
+.container {
+  width: 90%;
+  max-width: 700px;
+  margin: 20px auto;
+  background: white;
+  padding: 20px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center all content */
+}
+
+/* Header Section */
+.header {
+  background-color: #004aad;
+  color: white;
+  padding: 20px;
+  font-size: 20px;
+  font-weight: bold;
+  border-radius: 8px;
+  text-align: center;
+  width: 90%;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* Chat Box */
+.chat-box {
+  width: 100%;
+  max-width: 600px; /* Set a max width for chat area */
+  height: auto;
+  overflow-y: auto;
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Chat Message Bubbles */
+.chat-message {
+  padding: 12px;
+  margin: 5px;
+  border-radius: 8px;
+  max-width: 80%;
+  position: relative;
+}
+
+.chat-message.user {
+  background-color: #007bff;
+  color: white;
+  text-align: right;
+  margin-left: auto;
+  border-radius: 12px 12px 0 12px;
+}
+
+.chat-message.assistant {
+  background-color: #f8f9fa;
+  text-align: left;
+  margin-right: auto;
+  border-radius: 12px 12px 12px 0;
+}
+
+/* Input and Buttons Wrapper */
+.input-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center align */
+  width: 100%;
+  max-width: 600px;
+}
+
+/* Text Input */
+.textarea {
+  width: calc(
+    100% - 20px
+  ); /* Add 10px padding on both sides */
+  max-width: 600px; /* Limit width */
+  height: 80px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  resize: none;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+/* Align buttons horizontally */
+.button-group {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
+  max-width: 600px;
+}
+
+/* Voice Input and Send Buttons */
+.voice-button,
+.send-button {
+  flex: 1;
+  max-width: 300px; /* Limit button width for mobile */
+  text-align: center;
+  box-sizing: border-box;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+/* Voice Input Button */
+.voice-button {
+  background-color: #28a745;
+  color: white;
+}
+
+.voice-button:hover {
+  background-color: #218838;
+}
+
+/* Send Button */
+.send-button {
+  background-color: #007bff;
+  color: white;
+}
+
+.send-button:hover {
+  background-color: #0056b3;
+}
+
+/* Read Aloud Button */
+.read-aloud-button {
+  margin-top: 10px;
+  padding: 8px 14px;
+  background: #007bff;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  color: white;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+
+.read-aloud-button:hover {
+  background-color: #0056b3;
+}
+
+/* Recommended Questions Section */
+.recommended-questions {
+  margin: 20px 0;
+  padding: 15px;
+  background: #f1f3f5;
+  border-radius: 8px;
+  text-align: center;
+  max-width: 600px;
+}
+
+/* Recommended Questions Header */
+.recommended-questions h3 {
+  font-size: 16px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+/* Recommended Question Buttons */
+.question-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  padding: 0 10px;
+}
+
+.question-button {
+  background-color: #007bff;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 5px;
+  font-size: 13px;
+}
+
+.question-button:hover {
+  background-color: #0056b3;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    width: 95%;
+    padding: 15px;
+  }
+
+  .chat-message {
+    font-size: 14px;
+  }
+
+  .textarea {
+    width: calc(
+      100% - 20px
+    ); /* Add left and right padding */
+  }
+
+  .button-group {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .voice-button,
+  .send-button {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .question-list {
+    padding: 0 5px; /* Add padding for better spacing on mobile */
+  }
+}
