@@ -14,11 +14,11 @@ body {
   margin: 20px auto;
   background: white;
   padding: 20px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15); /* Stronger shadow */
   border-radius: 12px;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Center all content */
+  align-items: center;
 }
 
 /* Header Section */
@@ -33,33 +33,39 @@ body {
   width: 90%;
   max-width: 700px;
   margin: 0 auto;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.15); /* Header shadow */
 }
 
 /* Chat Box */
 .chat-box {
   width: 100%;
-  max-width: 600px; /* Set a max width for chat area */
+  max-width: 100%;
   height: auto;
-  overflow-y: auto;
-  background: white;
+  max-height: 700px; /* Fixed height for the chat area */
+  overflow-y: auto; /* Enable scrolling within chat area */
+  background: rgb(147, 144, 144);
   padding: 15px;
   border-radius: 8px;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.15); /* Enhanced shadow for better visibility */
   margin-top: 15px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: center; /* Ensure proper centering of messages */
+  justify-content: flex-start; /* Align messages at the top */
 }
 
-/* Chat Message Bubbles */
+/* Chat Messages */
 .chat-message {
   padding: 12px;
   margin: 5px;
   border-radius: 8px;
   max-width: 80%;
   position: relative;
+  word-wrap: break-word;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Individual message shadow */
 }
 
+/* User Messages */
 .chat-message.user {
   background-color: #007bff;
   color: white;
@@ -68,6 +74,7 @@ body {
   border-radius: 12px 12px 0 12px;
 }
 
+/* Assistant Responses */
 .chat-message.assistant {
   background-color: #f8f9fa;
   text-align: left;
@@ -75,21 +82,25 @@ body {
   border-radius: 12px 12px 12px 0;
 }
 
-/* Input and Buttons Wrapper */
+/* Input Container */
 .input-container {
   display: flex;
   flex-direction: column;
-  align-items: center; /* Center align */
+  align-items: center;
+  justify-content: center; /* Dikeyde ortalama */
   width: 100%;
   max-width: 600px;
+  padding: 15px;
+  background: white;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1); /* Shadow added */
+  border-radius: 8px;
+  margin-top: 10px;
 }
 
 /* Text Input */
 .textarea {
-  width: calc(
-    100% - 20px
-  ); /* Add 10px padding on both sides */
-  max-width: 600px; /* Limit width */
+  width: 100%;
+  max-width: 100%; /* Tam genişlik kullan */
   height: 80px;
   padding: 10px;
   border: 1px solid #ccc;
@@ -99,9 +110,10 @@ body {
   box-sizing: border-box;
   margin-bottom: 10px;
   text-align: left;
+  box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-/* Align buttons horizontally */
+/* Button Group */
 .button-group {
   display: flex;
   flex-direction: row;
@@ -112,16 +124,17 @@ body {
   max-width: 600px;
 }
 
-/* Voice Input and Send Buttons */
+/* Buttons */
 .voice-button,
 .send-button {
   flex: 1;
-  max-width: 300px; /* Limit button width for mobile */
+  max-width: 300px; /* Button width limit */
   text-align: center;
   box-sizing: border-box;
   padding: 12px;
   border-radius: 8px;
   font-size: 16px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Button shadow */
 }
 
 /* Voice Input Button */
@@ -169,6 +182,7 @@ body {
   border-radius: 8px;
   text-align: center;
   max-width: 600px;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1); /* Shadow added */
 }
 
 /* Recommended Questions Header */
@@ -202,7 +216,7 @@ body {
 /* Responsive Design */
 @media (max-width: 768px) {
   .container {
-    width: 95%;
+    width: 85%;
     padding: 15px;
   }
 
@@ -211,23 +225,21 @@ body {
   }
 
   .textarea {
-    width: calc(
-      100% - 20px
-    ); /* Add left and right padding */
+    width: calc(100% - 30px);
   }
 
   .button-group {
     flex-direction: column;
-    width: 100%;
+    width: 80%;
   }
 
   .voice-button,
   .send-button {
-    width: 100%;
-    max-width: 100%;
+    width: 80%;
+    max-width: 80%;
   }
 
   .question-list {
-    padding: 0 5px; /* Add padding for better spacing on mobile */
+    padding: 0 5px;
   }
 }

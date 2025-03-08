@@ -1,38 +1,44 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   textToSpeech,
   stopSpeech,
 } from "../api/textToSpeechService";
 import { startVoiceRecognition } from "../api/voiceRecognitionService";
 
-// Component for handling chat interactions
 const ChatBox = ({ messages, sendMessage }) => {
-  // Component state for tracking speech playback, user input, and voice recognition status
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [inputText, setInputText] = useState("");
   const [isListening, setIsListening] = useState(false);
+  const chatEndRef = useRef(null);
 
-  // Handles text-to-speech playback and stopping
-  const handleSpeech = (text) => {
-    if (isSpeaking) {
+  // Scroll to bottom when a new message is added
+  useEffect(() => {
+    chatEndRef.current?.scrollIntoView({
+      behavior: "smooth",
+    });
+  }, [messages]);
+
+  // Handle text-to-speech functionality
+  const handleSpeech = (text, index) => {
+    if (isSpeaking === index) {
       stopSpeech();
       setIsSpeaking(false);
     } else {
-      textToSpeech(text, setIsSpeaking);
+      textToSpeech(text, () => setIsSpeaking(index));
     }
   };
 
-  // Handles sending user messages and clearing the input field after submission
+  // Send user's text input as a message
   const handleSend = () => {
     if (inputText.trim() !== "") {
       sendMessage(inputText);
-      setInputText(""); // Clear input field after sending the message
+      setInputText(""); // Clear input after sending
     }
   };
 
-  // Starts voice recognition and updates the input field with the recognized text
+  // Start voice recognition and convert speech to text
   const handleVoiceInput = () => {
-    setIsListening(true); // Update button state
+    setIsListening(true); // Indicate listening state
 
     startVoiceRecognition()
       .then((transcript) => {
@@ -46,47 +52,53 @@ const ChatBox = ({ messages, sendMessage }) => {
 
   return (
     <div className="chat-box">
-      {/* Rendering chat messages and controls */}
       {messages.map((msg, index) => (
         <div
           key={index}
           className={`chat-message ${msg.role}`}
         >
           <p>{msg.content}</p>
-          {/* If the message is from the assistant, display a button to listen to the text */}
           {msg.role === "assistant" && (
             <button
               className="read-aloud-button"
-              onClick={() => handleSpeech(msg.content)}
+              onClick={() =>
+                handleSpeech(msg.content, index)
+              }
             >
-              {isSpeaking ? "⏹️ Durdur" : "🔊 Dinle"}
+              {isSpeaking === index
+                ? "⏹️ Stop"
+                : "🔊 Listen"}
             </button>
           )}
         </div>
       ))}
 
-      {/* User input field for typing messages */}
+      {/* Empty div for auto-scrolling */}
+      <div ref={chatEndRef}></div>
+
+      {/* User message input area */}
       <div className="input-container">
         <textarea
           className="textarea"
           value={inputText}
           onChange={(e) => setInputText(e.target.value)}
-          placeholder="Sorunuzu buraya yazın..."
+          placeholder="Type your question here..."
         />
 
-        {/* Buttons for voice input and sending messages */}
+        {/* Buttons placed side by side */}
         <div className="button-group">
           <button
             className="voice-button"
             onClick={handleVoiceInput}
           >
-            🎤 {isListening ? "Dinleniyor..." : "Sesle Yaz"}
+            🎤{" "}
+            {isListening ? "Listening..." : "Voice Input"}
           </button>
           <button
             className="send-button"
             onClick={handleSend}
           >
-            Gönder
+            Send
           </button>
         </div>
       </div>
