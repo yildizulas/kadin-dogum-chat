@@ -22,18 +22,18 @@ body {
 }
 
 /* Header Section */
-.header {
-  background-color: #002855; /* Liv Hospital Dark Blue */
-  color: white;
+.chat-header {
+  background-color: #f0f8fc;
+  color: #002855;
   padding: 20px;
-  font-size: 22px;
-  font-weight: bold;
   border-radius: 8px;
+  font-size: 24px;
+
   text-align: center;
   width: 90%;
   max-width: 700px;
-  margin: 0 auto;
-  box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.2);
+  margin: 0 auto 15px auto;
+  box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* Chat Box */
@@ -46,6 +46,7 @@ body {
   background-color: #f4f4f4;
   padding: 15px;
   border-radius: 8px;
+  border: 2px solid #ccc;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
   margin-top: 15px;
   display: flex;

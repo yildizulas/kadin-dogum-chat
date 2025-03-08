@@ -6,19 +6,19 @@ import {
 import { startVoiceRecognition } from "../api/voiceRecognitionService";
 
 const ChatBox = ({ messages, sendMessage }) => {
-  const [isSpeaking, setIsSpeaking] = useState(false);
-  const [inputText, setInputText] = useState("");
-  const [isListening, setIsListening] = useState(false);
-  const chatEndRef = useRef(null);
+  const [isSpeaking, setIsSpeaking] = useState(false); // Currently speaking state
+  const [inputText, setInputText] = useState(""); // User input text
+  const [isListening, setIsListening] = useState(false); // Voice input state
+  const chatEndRef = useRef(null); // Ref to auto-scroll
 
-  // Scroll to bottom when a new message is added
+  // Scroll to bottom whenever new messages appear
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({
       behavior: "smooth",
     });
   }, [messages]);
 
-  // Handle text-to-speech functionality
+  // Handle text-to-speech actions
   const handleSpeech = (text, index) => {
     if (isSpeaking === index) {
       stopSpeech();
@@ -28,7 +28,7 @@ const ChatBox = ({ messages, sendMessage }) => {
     }
   };
 
-  // Send user's text input as a message
+  // Handle sending message
   const handleSend = () => {
     if (inputText.trim() !== "") {
       sendMessage(inputText);
@@ -36,10 +36,9 @@ const ChatBox = ({ messages, sendMessage }) => {
     }
   };
 
-  // Start voice recognition and convert speech to text
+  // Handle voice input (speech to text)
   const handleVoiceInput = () => {
-    setIsListening(true); // Indicate listening state
-
+    setIsListening(true);
     startVoiceRecognition()
       .then((transcript) => {
         setInputText(transcript);
@@ -50,14 +49,25 @@ const ChatBox = ({ messages, sendMessage }) => {
       });
   };
 
+  // Handle Enter key to send messages
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault(); // Prevent adding a new line
+      handleSend();
+    }
+  };
+
   return (
     <div className="chat-box">
+      {/* Render chat messages */}
       {messages.map((msg, index) => (
         <div
           key={index}
           className={`chat-message ${msg.role}`}
         >
           <p>{msg.content}</p>
+
+          {/* Button for text-to-speech */}
           {msg.role === "assistant" && (
             <button
               className="read-aloud-button"
@@ -66,14 +76,14 @@ const ChatBox = ({ messages, sendMessage }) => {
               }
             >
               {isSpeaking === index
-                ? "⏹️ Stop"
-                : "🔊 Listen"}
+                ? "⏹️ Durdur"
+                : "🔊 Dinle"}
             </button>
           )}
         </div>
       ))}
 
-      {/* Empty div for auto-scrolling */}
+      {/* Reference div for scrolling */}
       <div ref={chatEndRef}></div>
 
       {/* User message input area */}
@@ -82,26 +92,29 @@ const ChatBox = ({ messages, sendMessage }) => {
           className="textarea"
           value={inputText}
           onChange={(e) => setInputText(e.target.value)}
-          placeholder="Type your question here..."
+          placeholder="Sorunuzu buraya yazabilirsiniz..."
+          onKeyDown={handleKeyDown} // Send message on Enter key press
         />
 
-        {/* Buttons placed side by side */}
+        {/* Button group: Voice input and Send message */}
         <div className="button-group">
           <button
             className="voice-button"
             onClick={handleVoiceInput}
           >
-            🎤{" "}
-            {isListening ? "Listening..." : "Voice Input"}
+            🎤 {isListening ? "Dinliyorum..." : "Sesle Sor"}
           </button>
           <button
             className="send-button"
             onClick={handleSend}
           >
-            Send
+            Gönder
           </button>
         </div>
       </div>
+
+      {/* End reference div for auto-scroll */}
+      <div ref={chatEndRef}></div>
     </div>
   );
 };

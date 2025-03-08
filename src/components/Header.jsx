@@ -3,11 +3,13 @@ import React from "react";
 const Header = () => {
   return (
     <header className="header">
-      <h3>Doç. Dr. Ali Ovayolu’nun Yapay Zeka Asistanı</h3>
-      <p>
-        Burada kadın doğum uzmanlarına sorularınızı
-        sorabilirsiniz.
-      </p>
+      <div className="chat-header">
+        <h3>🩺 Kadın Sağlığı Yapay Zeka Asistanı</h3>
+        <p>
+          Sorularınızı yazarak ya da sesli olarak sorabilir,
+          cevapları dinleyebilirsiniz.
+        </p>
+      </div>
     </header>
   );
 };
