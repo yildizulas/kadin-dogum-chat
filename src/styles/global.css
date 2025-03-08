@@ -14,7 +14,7 @@ body {
   margin: 20px auto;
   background: white;
   padding: 20px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15); /* Stronger shadow */
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
   border-radius: 12px;
   display: flex;
   flex-direction: column;
@@ -23,17 +23,17 @@ body {
 
 /* Header Section */
 .header {
-  background-color: #004aad;
+  background-color: #002855; /* Liv Hospital Dark Blue */
   color: white;
   padding: 20px;
-  font-size: 20px;
+  font-size: 22px;
   font-weight: bold;
   border-radius: 8px;
   text-align: center;
   width: 90%;
   max-width: 700px;
   margin: 0 auto;
-  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.15); /* Header shadow */
+  box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.2);
 }
 
 /* Chat Box */
@@ -41,17 +41,16 @@ body {
   width: 100%;
   max-width: 100%;
   height: auto;
-  max-height: 700px; /* Fixed height for the chat area */
-  overflow-y: auto; /* Enable scrolling within chat area */
-  background: rgb(147, 144, 144);
+  max-height: 700px;
+  overflow-y: auto;
+  background-color: #f4f4f4;
   padding: 15px;
   border-radius: 8px;
-  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.15); /* Enhanced shadow for better visibility */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
   margin-top: 15px;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Ensure proper centering of messages */
-  justify-content: flex-start; /* Align messages at the top */
+  align-items: center;
 }
 
 /* Chat Messages */
@@ -62,7 +61,7 @@ body {
   max-width: 80%;
   position: relative;
   word-wrap: break-word;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Individual message shadow */
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.12);
 }
 
 /* User Messages */
@@ -87,12 +86,11 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center; /* Dikeyde ortalama */
   width: 100%;
   max-width: 600px;
   padding: 15px;
   background: white;
-  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1); /* Shadow added */
+  box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.2);
   border-radius: 8px;
   margin-top: 10px;
 }
@@ -100,9 +98,9 @@ body {
 /* Text Input */
 .textarea {
   width: 100%;
-  max-width: 100%; /* Tam genişlik kullan */
+  max-width: 100%;
   height: 80px;
-  padding: 10px;
+  padding: 12px;
   border: 1px solid #ccc;
   border-radius: 8px;
   font-size: 14px;
@@ -111,6 +109,7 @@ body {
   margin-bottom: 10px;
   text-align: left;
   box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.1);
+  overflow-x: hidden;
 }
 
 /* Button Group */
@@ -128,40 +127,41 @@ body {
 .voice-button,
 .send-button {
   flex: 1;
-  max-width: 300px; /* Button width limit */
+  max-width: 300px;
   text-align: center;
   box-sizing: border-box;
   padding: 12px;
   border-radius: 8px;
   font-size: 16px;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Button shadow */
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.15);
+  border: none;
 }
 
 /* Voice Input Button */
 .voice-button {
-  background-color: #28a745;
-  color: white;
-}
-
-.voice-button:hover {
-  background-color: #218838;
-}
-
-/* Send Button */
-.send-button {
   background-color: #007bff;
   color: white;
 }
 
-.send-button:hover {
+.voice-button:hover {
   background-color: #0056b3;
+}
+
+/* Send Button */
+.send-button {
+  background-color: #002855;
+  color: white;
+}
+
+.send-button:hover {
+  background-color: #001f40;
 }
 
 /* Read Aloud Button */
 .read-aloud-button {
   margin-top: 10px;
   padding: 8px 14px;
-  background: #007bff;
+  background: #009cde; /* Liv Hospital Light Blue */
   border: none;
   font-size: 16px;
   cursor: pointer;
@@ -171,18 +171,18 @@ body {
 }
 
 .read-aloud-button:hover {
-  background-color: #0056b3;
+  background-color: #007bb5;
 }
 
 /* Recommended Questions Section */
 .recommended-questions {
   margin: 20px 0;
   padding: 15px;
-  background: #f1f3f5;
+  background: #e6f1f8;
   border-radius: 8px;
   text-align: center;
   max-width: 600px;
-  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1); /* Shadow added */
+  box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.15);
 }
 
 /* Recommended Questions Header */
@@ -202,7 +202,7 @@ body {
 }
 
 .question-button {
-  background-color: #007bff;
+  background-color: #009cde;
   color: white;
   padding: 8px 12px;
   border-radius: 5px;
@@ -210,11 +210,15 @@ body {
 }
 
 .question-button:hover {
-  background-color: #0056b3;
+  background-color: #007bb5;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
+  html,
+  body {
+    overflow-x: hidden;
+  }
   .container {
     width: 85%;
     padding: 15px;
@@ -222,6 +226,10 @@ body {
 
   .chat-message {
     font-size: 14px;
+  }
+
+  .chat-box {
+    overflow-x: hidden;
   }
 
   .textarea {

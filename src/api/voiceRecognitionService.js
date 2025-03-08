@@ -1,50 +1,46 @@
 export const startVoiceRecognition = () => {
   return new Promise((resolve, reject) => {
-    // Check if SpeechRecognition API is available
     const SpeechRecognition =
       window.SpeechRecognition ||
       window.webkitSpeechRecognition;
 
     if (!SpeechRecognition) {
       reject(
-        new Error("Tarayıcınız ses tanımayı desteklemiyor.")
+        new Error(
+          "Bu tarayıcı ses tanımayı desteklemiyor. Lütfen Google Chrome kullanmayı deneyin."
+        )
       );
       return;
     }
 
     const recognition = new SpeechRecognition();
-    recognition.lang = "tr-TR";
+    recognition.lang = "tr-TR"; // Türkçe dil desteği ekledim, isteğe göre değiştirebilirsin
     recognition.interimResults = false;
     recognition.maxAlternatives = 1;
 
-    // Automatically stop recognition when speech ends
+    recognition.start();
+
     recognition.onspeechend = () => {
       recognition.stop();
     };
 
-    // Handle successful recognition
     recognition.onresult = (event) => {
-      resolve(event.results[0][0].transcript.trim());
+      const transcript =
+        event.results[0][0].transcript.trim();
+      resolve(transcript);
     };
 
-    // Handle errors
-    recognition.onerror = (error) => {
-      console.error("Ses tanıma hatası:", error);
+    recognition.onerror = (event) => {
+      console.error("Ses tanıma hatası:", event.error);
       reject(
-        new Error(
-          "Ses tanıma başarısız oldu. Lütfen tekrar deneyin."
-        )
+        new Error(`Ses tanıma hatası: ${event.error}`)
       );
     };
 
-    try {
-      recognition.start();
-    } catch (error) {
+    recognition.onnomatch = () => {
       reject(
-        new Error(
-          "Ses tanıma başlatılamadı. Tarayıcı izinlerini kontrol edin."
-        )
+        new Error("Anlaşılamadı, lütfen tekrar deneyin.")
       );
-    }
+    };
   });
 };
