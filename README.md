@@ -1,4 +1,4 @@
-### **Doç. Dr. Ali Ovayolu's AI-Powered Assistant**  
+### **🩺 Doç. Dr. Ali Ovayolu's AI-Powered Assistant**  
 
 This project is an AI-based chatbot designed to answer questions about obstetrics and gynecology. Users can interact with the assistant via text or voice input and receive AI-powered responses.
 
