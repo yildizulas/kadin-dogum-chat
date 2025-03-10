@@ -35,15 +35,18 @@ body {
   margin: 0 auto 15px auto;
   box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.1);
 }
+.chat-header p {
+  font-size: 20px;
+}
 
 /* Chat Box */
 .chat-box {
   width: 100%;
   max-width: 100%;
   height: auto;
-  max-height: 700px;
+  max-height: 600px;
   overflow-y: auto;
-  background-color: #f4f4f4;
+  background-color: #f0f8fc;
   padding: 15px;
   border-radius: 8px;
   border: 2px solid #ccc;

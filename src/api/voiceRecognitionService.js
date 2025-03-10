@@ -14,7 +14,7 @@ export const startVoiceRecognition = () => {
     }
 
     const recognition = new SpeechRecognition();
-    recognition.lang = "tr-TR"; // Türkçe dil desteği ekledim, isteğe göre değiştirebilirsin
+    recognition.lang = "tr-TR"; 
     recognition.interimResults = false;
     recognition.maxAlternatives = 1;
 

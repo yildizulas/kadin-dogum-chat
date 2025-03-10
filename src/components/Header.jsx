@@ -4,10 +4,12 @@ const Header = () => {
   return (
     <header className="header">
       <div className="chat-header">
-        <h3>🩺 Kadın Sağlığı Yapay Zeka Asistanı</h3>
+        <h4>
+          🩺 Doç. Dr. Ali Ovayolu'nun Yapay Zeka Asistanı
+        </h4>
         <p>
-          Sorularınızı yazarak ya da sesli olarak sorabilir,
-          cevapları dinleyebilirsiniz.
+          Yapay Zeka Asistanı ile Kadın Doğum ve
+          Hastalıklarına Dair Merak Ettiklerinizi Sorun
         </p>
       </div>
     </header>
