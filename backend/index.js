@@ -1,5 +1,4 @@
 const express = require("express");
-const axios = require("axios");
 const cors = require("cors");
 require("dotenv").config();
 const { askGPT } = require("./services/gptService");
@@ -36,6 +35,6 @@ app.post("/api/tts", async (req, res) => {
   }
 });
 
-app.listen(3001, () => {
+app.listen(3001, "0.0.0.0", () => {
   console.log("Backend çalışıyor: http://localhost:3001");
 });
