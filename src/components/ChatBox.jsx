@@ -1,15 +1,14 @@
+// ChatBox.jsx
+
 import React, { useState, useEffect, useRef } from "react";
-import {
-  textToSpeech,
-  stopSpeech,
-} from "../api/textToSpeechService";
 import { startVoiceRecognition } from "../api/voiceRecognitionService";
 
 const ChatBox = ({ messages, sendMessage }) => {
-  const [isSpeaking, setIsSpeaking] = useState(false); // Currently speaking state
+  const [isSpeaking, setIsSpeaking] = useState(false); // Currently speaking index
   const [inputText, setInputText] = useState(""); // User input text
   const [isListening, setIsListening] = useState(false); // Voice input state
   const chatEndRef = useRef(null); // Ref to auto-scroll
+  const audioRef = useRef(null); // Ref for audio playback
 
   // Scroll to bottom whenever new messages appear
   useEffect(() => {
@@ -18,13 +17,47 @@ const ChatBox = ({ messages, sendMessage }) => {
     });
   }, [messages]);
 
-  // Handle text-to-speech actions
-  const handleSpeech = (text, index) => {
+  const handleSpeech = async (text, index) => {
     if (isSpeaking === index) {
-      stopSpeech();
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.currentTime = 0;
+        audioRef.current = null;
+      }
       setIsSpeaking(false);
-    } else {
-      textToSpeech(text, () => setIsSpeaking(index));
+      return;
+    }
+
+    try {
+      const res = await fetch(
+        "http://localhost:3001/api/tts",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ text }),
+        }
+      );
+
+      const data = await res.json();
+
+      if (!res.ok || !data.audioContent) {
+        throw new Error(data.error || "TTS başarısız");
+      }
+
+      const audio = new Audio(
+        `data:audio/mp3;base64,${data.audioContent}`
+      );
+      audioRef.current = audio;
+      audio.play();
+      setIsSpeaking(index);
+
+      audio.onended = () => {
+        setIsSpeaking(false);
+        audioRef.current = null;
+      };
+    } catch (error) {
+      console.error("TTS Hatası:", error);
+      setIsSpeaking(false);
     }
   };
 
@@ -83,7 +116,6 @@ const ChatBox = ({ messages, sendMessage }) => {
         </div>
       ))}
 
-      {/* Reference div for scrolling */}
       <div ref={chatEndRef}></div>
 
       {/* User message input area */}
@@ -93,10 +125,9 @@ const ChatBox = ({ messages, sendMessage }) => {
           value={inputText}
           onChange={(e) => setInputText(e.target.value)}
           placeholder="Sorunuzu buraya yazabilirsiniz..."
-          onKeyDown={handleKeyDown} // Send message on Enter key press
+          onKeyDown={handleKeyDown}
         />
 
-        {/* Button group: Voice input and Send message */}
         <div className="button-group">
           <button
             className="voice-button"
@@ -113,7 +144,6 @@ const ChatBox = ({ messages, sendMessage }) => {
         </div>
       </div>
 
-      {/* End reference div for auto-scroll */}
       <div ref={chatEndRef}></div>
     </div>
   );
