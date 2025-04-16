@@ -2,33 +2,54 @@
 
 This project is an AI-based chatbot designed to answer questions about obstetrics and gynecology. Users can interact with the assistant via text or voice input and receive AI-powered responses.
 
+> **📦 Node.js Required**: Make sure you have Node.js version **>=16.x** installed on your machine.
+
 ---
 
 ## 🚀 Getting Started
 
 Follow these steps to run the project locally.
 
-### 1️⃣ Install Dependencies
+### 1️⃣ Configure Environment Variables
 
-Run the following command in the project directory:
+Create a `.env` file **inside the `/backend` folder** with the following content:
+
+```bash
+OPENAI_CHAT_KEY=your-openai-api-key
+GOOGLE_TTS_KEY=your-google-tts-api-key
+```
+
+### 2️⃣ Install Frontend Dependencies
+
+In the project root directory:
 
 ```bash
 npm install
 ```
 
-### 2️⃣ Configure Environment Variables
+### 3️⃣ Install Backend Dependencies
 
-Important: Add your API keys and other sensitive data in a .env file.
-Your .env file should be structured as follows:
+Navigate into the `backend` folder:
 
 ```bash
-REACT_APP_GOOGLE_TTS_KEY=your-google-tts-api-key
-REACT_APP_OPENAI_KEY=your-openai-api-key
+cd backend
+npm install express axios dotenv cors
 ```
 
-### 3️⃣ Start the Development Server
+### 4️⃣ Start the Backend Server
 
-Run the following command to start the application:
+From the `backend` folder, run:
+
+```bash
+node index.js
+```
+
+This will start the API server at:
+👉 http://localhost:3001
+
+### 5️⃣ Start the Frontend Application
+
+In the root folder, run:
 
 ```bash
 npm start
@@ -57,23 +78,26 @@ This will open the app in your default browser at:
 ## 📜 Project Structure
 
 ```
+/backend
+ ├── index.js
+ ├── services/
+ │    ├── gptService.js
+ │    ├── textToSpeechService.js
+ ├── .env (not tracked in Git)
+
 /src
  ├── /components
  │    ├── ChatBox.jsx
  │    ├── Header.jsx
  │    ├── RecommendedQuestions.jsx
- │    ├── VoiceRecognition.jsx
  │    └── MessageInput.jsx
  ├── /api
- │    ├── gptService.js
- │    ├── textToSpeechService.js
  │    └── voiceRecognitionService.js
  ├── /pages
  │    ├── ChatPage.jsx
  ├── App.js
  ├── index.js
  ├── global.css
- └── .env (not tracked in Git)
 ```
 
 ## 🐞 Troubleshooting
@@ -92,6 +116,18 @@ This will open the app in your default browser at:
 
 - Ensure your browser supports Web Speech API.
 - Some mobile browsers block microphone access; try Google Chrome.
+
+## 🔧 Example API Test
+
+You can test the Text-to-Speech (TTS) API with a simple `curl` command:
+
+```bash
+curl -X POST http://localhost:3001/api/tts \
+  -H "Content-Type: application/json" \
+  -d '{"text": "Merhaba, nasılsınız?"}'
+```
+
+This should return a JSON object with `audioContent` (Base64-encoded MP3) that you can decode and play.
 
 Developed by: Ulaş Yıldız
 
